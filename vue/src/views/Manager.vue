@@ -3,7 +3,7 @@
     <div class="manager-header">
       <div class="manager-header-left">
         <img src="@/assets/imgs/logo.png" alt="">
-        <div class="title">管理系统</div>
+        <div class="title">BOSS直聘</div>
       </div>
       <div class="manager-header-center">
         <el-breadcrumb separator="/">
@@ -45,6 +45,7 @@
             </template>
             <el-menu-item index="/manager/notice">系统公告</el-menu-item>
             <el-menu-item index="/manager/Industry">行业信息</el-menu-item>
+            <el-menu-item index="/manager/Employ">企业信息</el-menu-item>
           </el-sub-menu>
           <el-sub-menu index="2">
             <template #title>

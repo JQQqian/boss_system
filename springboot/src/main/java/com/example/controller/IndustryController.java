@@ -81,4 +81,5 @@ public class IndustryController {
         return Result.success(pageInfo);
     }
 
+
 }
