@@ -44,8 +44,8 @@
               <span>信息管理</span>
             </template>
             <el-menu-item index="/manager/notice">系统公告</el-menu-item>
-            <el-menu-item index="/manager/Industry">行业信息</el-menu-item>
-            <el-menu-item index="/manager/Employ">企业信息</el-menu-item>
+            <el-menu-item index="/manager/industry">行业信息</el-menu-item>
+
           </el-sub-menu>
           <el-sub-menu index="2">
             <template #title>
@@ -53,6 +53,8 @@
               <span>用户管理</span>
             </template>
             <el-menu-item index="/manager/admin">管理员信息</el-menu-item>
+            <el-menu-item index="/manager/employ">企业信息</el-menu-item>
+            <el-menu-item index="/manager/user">用户信息</el-menu-item>
           </el-sub-menu>
         </el-menu>
       </div>
