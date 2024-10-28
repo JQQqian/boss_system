@@ -7,6 +7,8 @@ import com.example.common.Constants;
 import com.example.common.enums.RoleEnum;
 import com.example.entity.Account;
 import com.example.service.AdminService;
+import com.example.service.EmployService;
+import com.example.service.UserService;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,11 +30,20 @@ public class TokenUtils {
     @Resource
     private AdminService adminService;
 
+    @Resource
+    private EmployService employService;
+    @Resource
+    private UserService userService;
+
     private static AdminService staticAdminService;
+    private static EmployService staticEmployService;
+    private static UserService staticUserService;
 
     @PostConstruct
     public void init() {
         staticAdminService = adminService;
+        staticEmployService = employService;
+        staticUserService = userService;
     }
 
     /**
@@ -58,6 +69,12 @@ public class TokenUtils {
             String role = userRole[1];
             if (RoleEnum.ADMIN.name().equals(role)) {
                 return staticAdminService.selectById(userId);
+            }
+            if (RoleEnum.EMPLOY.name().equals(role)) {
+                return staticEmployService.selectById(userId);
+            }
+            if (RoleEnum.USER.name().equals(role)) {
+                return staticUserService.selectById(userId);
             }
         } catch (Exception e) {
             log.error("获取当前登录用户出错", e);

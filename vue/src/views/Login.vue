@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <div class="login-box">
-      <div style="font-weight: bold; font-size: 24px; text-align: center; margin-bottom: 30px; color: #1450aa">欢 迎 登 录</div>
+      <div style="font-weight: bold; font-size: 24px; text-align: center; margin-bottom: 30px; color: #1450aa">欢迎登录BOSS直聘网</div>
       <el-form ref="formRef" :model="data.form" :rules="data.rules">
         <el-form-item prop="username">
           <el-input :prefix-icon="User" size="large" v-model="data.form.username" placeholder="请输入账号"></el-input>
@@ -10,8 +10,10 @@
           <el-input show-password :prefix-icon="Lock" size="large" v-model="data.form.password" placeholder="请输入密码"></el-input>
         </el-form-item>
         <el-form-item prop="role">
-          <el-select size="large" v-model="data.form.role">
+          <el-select size="large" v-model="data.form.role" placeholder="请选择角色">
             <el-option value="ADMIN" label="管理员"></el-option>
+            <el-option value="EMPLOY" label="企业"></el-option>
+            <el-option value="USER" label="用户"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item>

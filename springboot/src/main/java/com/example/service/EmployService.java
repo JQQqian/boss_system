@@ -12,6 +12,7 @@ import com.example.utils.TokenUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import jakarta.annotation.Resource;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -100,4 +101,10 @@ public class EmployService {
         employMapper.updateById(dbEmploy);
     }
 
+    public void register(Account account) {
+        Employ employ = new Employ();
+        BeanUtils.copyProperties(account, employ);
+        employ.setStatus("待审核");
+        add(employ);
+    }
 }

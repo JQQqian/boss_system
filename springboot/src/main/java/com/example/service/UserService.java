@@ -12,6 +12,7 @@ import com.example.utils.TokenUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import jakarta.annotation.Resource;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -100,4 +101,9 @@ public class UserService {
         userMapper.updateById(dbUser);
     }
 
+    public void register(Account account) {
+        User user = new User();
+        BeanUtils.copyProperties(account, user);
+        add(user);
+    }
 }
