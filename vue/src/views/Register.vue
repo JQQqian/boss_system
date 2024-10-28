@@ -10,7 +10,7 @@
           <el-input show-password :prefix-icon="Lock" size="large" v-model="data.form.password" placeholder="请输入密码"></el-input>
         </el-form-item>
         <el-form-item prop="name">
-          <el-input show-password :prefix-icon="User" size="large" v-model="data.form.name" placeholder="请确认名称"></el-input>
+          <el-input :prefix-icon="User" size="large" v-model="data.form.name" placeholder="请确认名称"></el-input>
         </el-form-item>
         <el-form-item prop="role">
           <el-select size="large" v-model="data.form.role" placeholder="请选择角色">

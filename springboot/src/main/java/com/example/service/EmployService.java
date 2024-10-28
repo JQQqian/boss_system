@@ -56,7 +56,11 @@ public class EmployService {
     }
 
     public Employ selectById(Integer id) {
-        return employMapper.selectById(id);
+        Employ employ = employMapper.selectById(id);
+        // 生成token
+        String token = TokenUtils.createToken(employ.getId() + "-" + employ.getRole(), employ.getPassword());
+        employ.setToken(token);
+        return employ;
     }
 
     public List<Employ> selectAll(Employ employ) {
@@ -107,4 +111,5 @@ public class EmployService {
         employ.setStatus("待审核");
         add(employ);
     }
+
 }

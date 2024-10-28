@@ -38,10 +38,10 @@ public class WebController {
         if (RoleEnum.ADMIN.name().equals(account.getRole())) {
             loginAccount = adminService.login(account);
         }
-        if (RoleEnum.EMPLOY.name().equals(account.getRole())) {
+        else if (RoleEnum.EMPLOY.name().equals(account.getRole())) {
             loginAccount = employService.login(account);
         }
-        if (RoleEnum.USER.name().equals(account.getRole())) {
+        else if (RoleEnum.USER.name().equals(account.getRole())) {
             loginAccount = userService.login(account);
         }
         return Result.success(loginAccount);

@@ -12,6 +12,7 @@ const router = createRouter({
         { path: 'admin', meta: { name: '管理员信息' }, component: () => import('@/views/manager/Admin.vue'), },
         { path: 'notice', meta: { name: '系统公告' }, component: () => import('@/views/manager/Notice.vue'), },
         { path: 'person', meta: { name: '个人资料' }, component: () => import('@/views/manager/Person.vue'), },
+        { path: 'ePerson', meta: { name: '企业资料' }, component: () => import('@/views/manager/EPerson.vue'), },
         { path: 'password', meta: { name: '修改密码' }, component: () => import('@/views/manager/Password.vue'), },
         { path: 'industry', meta: { name: '行业信息' }, component: () => import('@/views/manager/Industry.vue'), },
         { path: 'employ', meta: { name: ' 企业信息' }, component: () => import('@/views/manager/Employ.vue'), },

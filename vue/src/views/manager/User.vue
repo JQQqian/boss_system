@@ -14,16 +14,16 @@
       <el-table stripe :data="data.tableData" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" />
         <el-table-column prop="username" label="账号" />
-        <el-table-column prop="name" label="名称" />
         <el-table-column prop="avatar" label="头像">
           <template v-slot="scope">
             <el-image style="width: 40px; height: 40px; border-radius: 50%; display: block" v-if="scope.row.avatar"
                       :src="scope.row.avatar" :preview-src-list="[scope.row.avatar]" preview-teleported></el-image>
           </template>
         </el-table-column>
+        <el-table-column prop="name" label="姓名" />
+        <el-table-column prop="role" label="角色" />
         <el-table-column prop="phone" label="电话" />
         <el-table-column prop="email" label="邮箱" />
-        <el-table-column prop="role" label="角色" />
         <el-table-column label="操作" width="100" fixed="right">
           <template v-slot="scope">
             <el-button type="primary" circle :icon="Edit" @click="handleEdit(scope.row)"></el-button>
@@ -36,19 +36,10 @@
       <el-pagination @current-change="load" background layout="prev, pager, next" :page-size="data.pageSize" v-model:current-page="data.pageNum" :total="data.total" />
     </div>
 
-    <el-dialog title="用户信息" v-model="data.formVisible" width="40%" destroy-on-close>
+    <el-dialog title="管理员信息" v-model="data.formVisible" width="40%" destroy-on-close>
       <el-form ref="form" :model="data.form" label-width="70px" style="padding: 20px">
         <el-form-item prop="username" label="用户名">
           <el-input v-model="data.form.username" placeholder="请输入用户名"></el-input>
-        </el-form-item>
-        <el-form-item prop="name" label="名称">
-          <el-input v-model="data.form.name" placeholder="请输入名称"></el-input>
-        </el-form-item>
-        <el-form-item prop="phone" label="电话">
-          <el-input v-model="data.form.phone" placeholder="请输入电话"></el-input>
-        </el-form-item>
-        <el-form-item prop="email" label="邮箱">
-          <el-input v-model="data.form.email" placeholder="请输入邮箱"></el-input>
         </el-form-item>
         <el-form-item prop="avatar" label="头像">
           <el-upload
@@ -58,6 +49,15 @@
           >
             <el-button type="primary">点击上传</el-button>
           </el-upload>
+        </el-form-item>
+        <el-form-item prop="name" label="姓名">
+          <el-input v-model="data.form.name" placeholder="请输入姓名"></el-input>
+        </el-form-item>
+        <el-form-item prop="phone" label="电话">
+          <el-input v-model="data.form.phone" placeholder="请输入电话"></el-input>
+        </el-form-item>
+        <el-form-item prop="email" label="邮箱">
+          <el-input v-model="data.form.email" placeholder="请输入邮箱"></el-input>
         </el-form-item>
       </el-form>
       <template #footer>
@@ -185,3 +185,5 @@ const reset = () => {
 
 load()
 </script>
+
+<style lang="scss" scoped>

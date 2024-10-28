@@ -55,10 +55,10 @@ public class JWTInterceptor implements HandlerInterceptor {
             if (RoleEnum.ADMIN.name().equals(role)) {
                 account = adminService.selectById(Integer.valueOf(userId));
             }
-            if (RoleEnum.EMPLOY.name().equals(role)) {
+            else if (RoleEnum.EMPLOY.name().equals(role)) {
                 account = employService.selectById(Integer.valueOf(userId));
             }
-            if (RoleEnum.USER.name().equals(role)) {
+            else if (RoleEnum.USER.name().equals(role)) {
                 account = userService.selectById(Integer.valueOf(userId));
             }
         } catch (Exception e) {

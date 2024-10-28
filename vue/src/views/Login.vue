@@ -56,7 +56,11 @@ const login = () => {
           ElMessage.success('登录成功')
           // 存储用户信息到浏览器的缓存
           localStorage.setItem('xm-user', JSON.stringify(res.data))
-          router.push('/manager/home')
+          if("USER" === res.data.role){
+            location.href = "/front/home"
+          }else{
+            router.push('/manager/home')
+          }
         } else {
           ElMessage.error(res.msg)
         }

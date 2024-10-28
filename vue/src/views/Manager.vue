@@ -19,7 +19,8 @@
           </div>
           <template #dropdown>
             <el-dropdown-menu>
-              <el-dropdown-item @click="router.push('/manager/person')">个人资料</el-dropdown-item>
+              <el-dropdown-item v-if="data.user.role === 'ADMIN'" @click="router.push('/manager/person')">个人资料</el-dropdown-item>
+              <el-dropdown-item v-if="data.user.role === 'EMPLOY'" @click="router.push('/manager/ePerson')">企业资料</el-dropdown-item>
               <el-dropdown-item @click="router.push('/manager/password')">修改密码</el-dropdown-item>
               <el-dropdown-item @click="logout">退出登录</el-dropdown-item>
             </el-dropdown-menu>
