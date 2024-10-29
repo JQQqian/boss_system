@@ -17,6 +17,7 @@ const router = createRouter({
         { path: 'industry', meta: { name: '行业信息' }, component: () => import('@/views/manager/Industry.vue'), },
         { path: 'employ', meta: { name: ' 企业信息' }, component: () => import('@/views/manager/Employ.vue'), },
         { path: 'user', meta: { name: ' 用户信息' }, component: () => import('@/views/manager/User.vue'), },
+        { path: 'position', meta: { name: ' 职位信息' }, component: () => import('@/views/manager/Position.vue'), },
       ]
     },
     {
