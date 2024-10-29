@@ -4,9 +4,13 @@
 <mapper namespace="com.example.mapper.PositionMapper">
 
     <select id="selectAll" resultType="com.example.entity.Position">
-        select * from `position`
+        select position.*, employ.name as employName, industry.name as industryName from `position`
+        left join employ on position.employ_id = employ.id
+        left join industry on position.industry_id = industry.id
         <where>
             <if test="name != null"> and position.name like concat('%', #{name}, '%')</if>
+            <if test="employName != null"> and employ.name = #{employName}</if>
+            <if test="employId != null"> and position.employ_id = #{employId}</if>
         </where>
     </select>
 
@@ -21,8 +25,8 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">id,</if>
             <if test="name != null">name,</if>
-            <if test="employId != null">employId,</if>
-            <if test="industryId != null">industryId,</if>
+            <if test="employId != null">employ_id,</if>
+            <if test="industryId != null">industry_id,</if>
             <if test="type != null">type,</if>
             <if test="experience != null">experience,</if>
             <if test="salary != null">salary,</if>
