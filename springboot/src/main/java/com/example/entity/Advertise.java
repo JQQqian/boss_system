@@ -6,7 +6,37 @@ public class Advertise {
     private Integer positionId;
     private String location;
 
+    private String positionSalary;
+
+    private String positionEducation;
+
+    private String employName;
+
     private String positionName;
+
+    public String getPositionSalary() {
+        return positionSalary;
+    }
+
+    public void setPositionSalary(String positionSalary) {
+        this.positionSalary = positionSalary;
+    }
+
+    public String getPositionEducation() {
+        return positionEducation;
+    }
+
+    public void setPositionEducation(String positionEducation) {
+        this.positionEducation = positionEducation;
+    }
+
+    public String getEmployName() {
+        return employName;
+    }
+
+    public void setEmployName(String employName) {
+        this.employName = employName;
+    }
 
     public Integer getId() {
         return id;

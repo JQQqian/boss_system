@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.mapper.AdvertiseMapper">
 
-    <select id="selectAll" resultType="com.example.entity.Advertise">
+        <select id="selectAll" resultType="com.example.entity.Advertise">
         select advertise.*,
         position.name as positionName, position.salary as positionSalary, position.education as positionEducation,
         employ.name as employName

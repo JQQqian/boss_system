@@ -147,6 +147,9 @@ const data = reactive({
   title: null,
   name: null,
   employName: null,
+  positionName: null,
+  positionEducation: null,
+  positionSalary: null,
   ids: [],
   user: JSON.parse(localStorage.getItem('xm-user') || '{}'),
   viewContent: null,
@@ -194,6 +197,9 @@ const load = () => {
       pageSize: data.pageSize,
       name: data.name,
       employName: data.employName,
+      positionName: data.positionName,
+      positionEducation: data.positionEducation,
+      positionSalary: data.positionSalary,
     }
   }).then(res => {
     if (res.code === '200') {

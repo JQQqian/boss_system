@@ -28,8 +28,7 @@
         </el-table-column>
         <el-table-column prop="positionName" label="推荐职位">
           <template v-slot="scope">
-            {{ scope.row.employName }} / {{scope.row.positionName }} / {{scope.row.positionEducation }} / {{scope.row.positionSalary }}
-            <!--            {{ scope.row.positionName + ' / ' + scope.row.positionEducation + ' / ' + scope.row.positionSalary }}-->
+            {{ scope.row.employName || '无' }} / {{ scope.row.positionName || '无' }} / {{ scope.row.positionEducation || '无' }} / {{ scope.row.positionSalary || '无' }}
           </template>
         </el-table-column>
         <el-table-column prop="location" label="广告位置" />

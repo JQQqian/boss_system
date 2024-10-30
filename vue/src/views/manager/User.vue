@@ -185,5 +185,3 @@ const reset = () => {
 
 load()
 </script>
-
-<style lang="scss" scoped>
