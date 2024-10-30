@@ -15,9 +15,27 @@ public class Position {
     private String content;
     private String status;
 
+    private String employAvatar;
+    private String employStage;
     private String employName;
     private String industryName;
     private List<String> tagList;
+
+    public String getEmployAvatar() {
+        return employAvatar;
+    }
+
+    public void setEmployAvatar(String employAvatar) {
+        this.employAvatar = employAvatar;
+    }
+
+    public String getEmployStage() {
+        return employStage;
+    }
+
+    public void setEmployStage(String employStage) {
+        this.employStage = employStage;
+    }
 
     public Integer getId() {
         return id;

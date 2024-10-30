@@ -1,6 +1,7 @@
 package com.example.service;
 
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.ObjectUtil;
 import com.example.common.enums.RoleEnum;
 import com.example.entity.Account;
 import com.example.entity.Employ;
@@ -13,6 +14,7 @@ import com.github.pagehelper.PageInfo;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -53,10 +55,6 @@ public class PositionService {
         return positionMapper.selectById(id);
     }
 
-    public List<Position> selectAll(Position position) {
-        return positionMapper.selectAll(position);
-    }
-
     public PageInfo<Position> selectPage(Position position, Integer pageNum, Integer pageSize) {
         Account currentUser = TokenUtils.getCurrentUser();
         if (RoleEnum.EMPLOY.name().equals(currentUser.getRole())) {
@@ -65,6 +63,23 @@ public class PositionService {
         PageHelper.startPage(pageNum, pageSize);
         List<Position> list = positionMapper.selectAll(position);
         return PageInfo.of(list);
+    }
+
+    public List<Position> selectAll(Position position) {
+        List<Position> positions = positionMapper.selectAll(position);
+        for (Position dbPosition : positions) {
+            String tags = dbPosition.getTags();
+            if (ObjectUtil.isNotEmpty(tags)) {
+                String[] split = tags.split(",");
+                List<String> list = Arrays.asList(split);
+                if (list.size() > 3) {
+                    dbPosition.setTagList(list.subList(0, 3));
+                } else {
+                    dbPosition.setTagList(list);
+                }
+            }
+        }
+        return positions;
     }
 
 }
