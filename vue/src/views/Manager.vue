@@ -45,6 +45,7 @@
               <span>信息管理</span>
             </template>
             <el-menu-item index="/manager/notice" v-if="data.user.role === 'ADMIN'">系统公告</el-menu-item>
+            <el-menu-item index="/manager/advertise" v-if="data.user.role === 'ADMIN'">广告信息</el-menu-item>
             <el-menu-item index="/manager/industry" v-if="data.user.role === 'ADMIN'">行业信息</el-menu-item>
             <el-menu-item index="/manager/position">职位信息</el-menu-item>
           </el-sub-menu>
