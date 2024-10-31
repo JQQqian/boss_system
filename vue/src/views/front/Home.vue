@@ -8,19 +8,19 @@
     </div>
     <div style="margin: 0 auto; width: 70%; text-align: center">
       <div style="display: flex">
-        <div style="flex: 1"><img style="width: 100%; height: 240px; border-top-left-radius: 10px"
+        <div @click="navTo('/front/positionDetail?id=' + data.leftAd.positionId)" style="cursor: pointer; flex: 1"><img style="width: 100%; height: 240px; border-top-left-radius: 10px"
                                   :src="data.leftAd.img" alt=""></div>
-        <div style="flex: 2; margin: 0 2px"><img style="width: 100%; height: 240px" :src="data.centerAd.img" alt="">
+        <div @click="navTo('/front/positionDetail?id=' + data.centerAd.positionId)" style="cursor: pointer; flex: 2; margin: 0 2px"><img style="width: 100%; height: 240px" :src="data.centerAd.img" alt="">
         </div>
-        <div style="flex: 1"><img style="width: 100%; height: 240px; border-top-right-radius: 10px"
+        <div @click="navTo('/front/positionDetail?id=' + data.rightAd.positionId)" style="cursor: pointer; flex: 1"><img style="width: 100%; height: 240px; border-top-right-radius: 10px"
                                   :src="data.rightAd.img" alt=""></div>
       </div>
       <div style="display: flex">
-        <div style="flex: 1"><img style="width: 100%; height: 120px; border-bottom-left-radius: 10px"
+        <div @click="navTo('/front/positionDetail?id=' + data.leftDownAd.positionId)" style="cursor: pointer; flex: 1"><img style="width: 100%; height: 120px; border-bottom-left-radius: 10px"
                                   :src="data.leftDownAd.img" alt=""></div>
-        <div style="flex: 2; margin: 0 2px"><img style="width: 100%; height: 120px" :src="data.centerDownAd.img" alt="">
+        <div @click="navTo('/front/positionDetail?id+' + data.centerDownAd.positionId)" style="cursor: pointer; flex: 2; margin: 0 2px"><img style="width: 100%; height: 120px" :src="data.centerDownAd.img" alt="">
         </div>
-        <div style="flex: 1"><img style="width: 100%; height: 120px; border-bottom-right-radius: 10px"
+        <div @click="navTo('/front/positionDetail?id+' + data.rightDownAd.positionId)" style="cursor: pointer; flex: 1"><img style="width: 100%; height: 120px; border-bottom-right-radius: 10px"
                                   :src="data.rightDownAd.img" alt=""></div>
       </div>
       <div style="margin: 30px; font-size: 22px; font-weight: bold; text-align: center">热招职位</div>
@@ -29,7 +29,7 @@
           <el-tab-pane v-for="item in data.industryData" :label="item.name" :name="item.id">
             <el-row :gutter="10">
               <el-col :span="8" v-for="it in data.positionData" style="margin-bottom: 20px">
-                <div class="card">
+                <div class="card" style="cursor: pointer" @click="navTo('/front/positionDetail?id=' + it.id)">
                   <div style="display: flex; padding: 0 5px">
                     <div style="flex: 1; text-align: left; font-size: 16px">{{ it.name }}</div>
                     <div style="width: 100px; text-align: right; color: red">{{ it.salary }}</div>
@@ -130,7 +130,8 @@ const loadIndustry = () => {
 const handleClick = (industryId) => {
   request.get('/position/selectAll', {
     params: {
-      industryId: industryId
+      industryId: industryId,
+      status:'审核通过'
     }
   }).then(res => {
     if (res.code === '200') {
@@ -139,6 +140,10 @@ const handleClick = (industryId) => {
       ElMessage.error(res.msg)
     }
   })
+}
+
+const navTo = (url) => {
+  location.href = url
 }
 
 loadAdvertise()

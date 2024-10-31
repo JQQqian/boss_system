@@ -13,7 +13,12 @@ public interface PositionMapper {
 
     void deleteById(Integer id);
 
-    @Select("select * from `position` where id = #{id}")
+    @Select("select position.*, " +
+            "employ.name as employName, employ.avatar as employAvatar,employ.city as employCity, " +
+            "employ.address as employAddress, employ.scale as employScale,employ.stage as employStage " +
+            "from position " +
+            "left join employ on position.employ_id = employ.id " +
+            "where position.id = #{id}")
     Position selectById(Integer id);
 
     List<Position> selectAll(Position position);

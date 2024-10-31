@@ -4,11 +4,14 @@
     <div class="front-header">
       <div class="front-header-left">
         <img src="@/assets/imgs/logo.png" alt="">
-        <div class="title">项目前台</div>
+        <div class="title" @click="router.push('/front/home')">BOSS直聘</div>
       </div>
       <div class="front-header-center">
         <el-menu :default-active="router.currentRoute.value.path" router mode="horizontal">
           <el-menu-item index="/front/home">首页</el-menu-item>
+          <el-menu-item index="/front/person">我的投递</el-menu-item>
+          <el-menu-item index="/front/person">我的收藏</el-menu-item>
+          <el-menu-item index="/front/person">我的简历</el-menu-item>
           <el-menu-item index="/front/person">个人中心</el-menu-item>
         </el-menu>
       </div>

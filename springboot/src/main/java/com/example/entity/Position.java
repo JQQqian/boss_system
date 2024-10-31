@@ -19,6 +19,9 @@ public class Position {
     private String employStage;
     private String employName;
     private String industryName;
+    private String employScale;
+    private String employCity;
+    private String employAddress;
     private List<String> tagList;
 
     public String getEmployAvatar() {
@@ -147,5 +150,29 @@ public class Position {
 
     public void setTagList(List<String> tagList) {
         this.tagList = tagList;
+    }
+
+    public String getEmployScale() {
+        return employScale;
+    }
+
+    public void setEmployScale(String employScale) {
+        this.employScale = employScale;
+    }
+
+    public String getEmployCity() {
+        return employCity;
+    }
+
+    public void setEmployCity(String employCity) {
+        this.employCity = employCity;
+    }
+
+    public String getEmployAddress() {
+        return employAddress;
+    }
+
+    public void setEmployAddress(String employAddress) {
+        this.employAddress = employAddress;
     }
 }

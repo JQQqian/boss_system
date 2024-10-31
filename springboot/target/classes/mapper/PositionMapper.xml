@@ -12,6 +12,7 @@
             <if test="employName != null"> and employ.name = #{employName}</if>
             <if test="employId != null"> and position.employ_id = #{employId}</if>
             <if test="industryId != null"> and position.industry_id = #{industryId}</if>
+            <if test="status != null"> and position.status = #{status}</if>
         </where>
     </select>
 
