@@ -15,6 +15,7 @@ import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -52,17 +53,13 @@ public class PositionService {
     }
 
     public Position selectById(Integer id) {
-        return positionMapper.selectById(id);
-    }
-
-    public PageInfo<Position> selectPage(Position position, Integer pageNum, Integer pageSize) {
-        Account currentUser = TokenUtils.getCurrentUser();
-        if (RoleEnum.EMPLOY.name().equals(currentUser.getRole())) {
-            position.setEmployId(currentUser.getId());
+        Position position = positionMapper.selectById(id);
+        String tags = position.getTags();
+        if (ObjectUtil.isNotEmpty(tags)) {
+            String[] split = tags.split(",");
+            position.setTagList(Arrays.asList(split));
         }
-        PageHelper.startPage(pageNum, pageSize);
-        List<Position> list = positionMapper.selectAll(position);
-        return PageInfo.of(list);
+        return position;
     }
 
     public List<Position> selectAll(Position position) {
@@ -82,4 +79,42 @@ public class PositionService {
         return positions;
     }
 
+    public PageInfo<Position> selectPage(Position position, Integer pageNum, Integer pageSize) {
+        Account currentUser = TokenUtils.getCurrentUser();
+        if (RoleEnum.EMPLOY.name().equals(currentUser.getRole())) {
+            position.setEmployId(currentUser.getId());
+        }
+        PageHelper.startPage(pageNum, pageSize);
+        List<Position> list = positionMapper.selectAll(position);
+        return PageInfo.of(list);
+    }
+
+    /**
+     * 推荐岗位（基于协同过滤推荐算法）
+     */
+    public List<Position> recommend() {
+        // TODO 暂时就随便取3个，后面我们在这里使用协同过滤推荐算法来推荐
+        List<Position> positions = positionMapper.selectAll(new Position());
+        Collections.shuffle(positions);
+        if (positions.size() > 3) {
+            positions = positions.subList(0, 3);
+        }
+        extracted(positions);
+        return positions;
+    }
+
+    private static void extracted(List<Position> positions) {
+        for(Position dbPosition : positions) {
+            String tags = dbPosition.getTags();
+            if(ObjectUtil.isNotEmpty(tags)) {
+                String[] split = tags.split(",");
+                List<String> list = Arrays.asList(split);
+                if(list.size() > 3) {
+                    dbPosition.setTagList(list.subList(0, 3));
+                } else {
+                    dbPosition.setTagList(list);
+                }
+            }
+        }
+    }
 }

@@ -84,4 +84,9 @@ public class PositionController {
         return Result.success(pageInfo);
     }
 
+    @GetMapping("/recommend")
+    public Result recommend() {
+        List<Position> list = positionService.recommend();
+        return Result.success(list);
+    }
 }
