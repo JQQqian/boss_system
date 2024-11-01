@@ -18,9 +18,9 @@
       <div style="display: flex">
         <div @click="navTo('/front/positionDetail?id=' + data.leftDownAd.positionId)" style="cursor: pointer; flex: 1"><img style="width: 100%; height: 120px; border-bottom-left-radius: 10px"
                                   :src="data.leftDownAd.img" alt=""></div>
-        <div @click="navTo('/front/positionDetail?id+' + data.centerDownAd.positionId)" style="cursor: pointer; flex: 2; margin: 0 2px"><img style="width: 100%; height: 120px" :src="data.centerDownAd.img" alt="">
+        <div @click="navTo('/front/positionDetail?id=' + data.centerDownAd.positionId)" style="cursor: pointer; flex: 2; margin: 0 2px"><img style="width: 100%; height: 120px" :src="data.centerDownAd.img" alt="">
         </div>
-        <div @click="navTo('/front/positionDetail?id+' + data.rightDownAd.positionId)" style="cursor: pointer; flex: 1"><img style="width: 100%; height: 120px; border-bottom-right-radius: 10px"
+        <div @click="navTo('/front/positionDetail?id=' + data.rightDownAd.positionId)" style="cursor: pointer; flex: 1"><img style="width: 100%; height: 120px; border-bottom-right-radius: 10px"
                                   :src="data.rightDownAd.img" alt=""></div>
       </div>
       <div style="margin: 30px; font-size: 22px; font-weight: bold; text-align: center">热招职位</div>

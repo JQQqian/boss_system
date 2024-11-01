@@ -25,8 +25,8 @@
           </div>
         </div>
         <div style="margin-top: 20px">
-          <el-button type="success" style="padding: 20px 30px">收藏岗位</el-button>
-          <el-button type="info" style="padding: 20px 30px">投递简历</el-button>
+          <el-button :disable="data.user || data.user.role !== 'USER'" type="success" style="padding: 20px 30px" @click="collect">收藏岗位</el-button>
+          <el-button :disable="data.user || data.user.role !== 'USER'" type="info" style="padding: 20px 30px">投递简历</el-button>
         </div>
       </div>
     </div>
@@ -90,8 +90,9 @@ import router from "@/router/index.js";
 
 
 const data = reactive({
+  user: JSON.parse(localStorage.getItem('xm-user') || '{}'),
   positionId: router.currentRoute.value.query.id,
-  positionData: {}
+  positionData: {},
 })
 
 const loadPosition = () => {
@@ -109,6 +110,24 @@ const loadRecommend = () => {
   request.get('/position/recommend').then(res => {
     if (res.code === '200') {
       data.recommendData = res.data
+    } else {
+      ElMessage.error(res.msg)
+    }
+  })
+}
+
+const collect = () => {
+  if (data.user.role !== 'USER') {
+    console.log(data.user.id)
+    ElMessage.warning('您的角色不支持该操作')
+    return
+  }
+  request.post('/collect/add', {
+    studentId: data.user.id,
+    positionId: data.positionId
+  }).then(res => {
+    if (res.code === '200') {
+      ElMessage.success('岗位收藏成功')
     } else {
       ElMessage.error(res.msg)
     }
