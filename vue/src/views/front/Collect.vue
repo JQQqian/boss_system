@@ -9,7 +9,7 @@
           <div class="card">
             <div style="display: flex;padding: 0 5px;cursor: pointer"
                  @click="navTo('/front/positionDetail?id=' + it.positionId)">
-              <div style="flex: 1;text-align: left;font-size: 16px">{{ it.positionName }}}</div>
+              <div style="flex: 1;text-align: left;font-size: 16px">{{ it.positionName }}</div>
               <div style="width: 100px;text-align: right;color: red"></div>
             </div>
             <div style="margin: 10px 0;padding: 0 5px;text-align: left">
