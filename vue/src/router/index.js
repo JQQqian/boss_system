@@ -28,7 +28,9 @@ const router = createRouter({
         { path: 'home', component: () => import('@/views/front/Home.vue'),  },
         { path: 'person', component: () => import('@/views/front/Person.vue'),  },
         { path: 'positionDetail', component: () => import('@/views/front/PositionDetail.vue'),  },
-        { path: 'collect', component: () => import('@/views/front/Collect.vue'),  }
+        { path: 'collect', component: () => import('@/views/front/Collect.vue'),  },
+        { path: 'resume', component: () => import('@/views/front/Resume.vue'),  },
+        { path: 'resumeEdit', component: () => import('@/views/front/ResumeEdit.vue'),  },
       ]
     },
     { path: '/login', component: () => import('@/views/Login.vue') },
