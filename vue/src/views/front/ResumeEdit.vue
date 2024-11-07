@@ -63,21 +63,66 @@
           <div style="display: flex;align-items: center">
             <div style="flex:1;color: #00bebd">{{ item.start }} ~ {{ item.end ? item.end : '至今' }}</div>
             <div style="flex:1;color: #00bebd;font-weight: bold">{{ item.school }}</div>
-            <div style="flex:1;color: #00bebd;font-weight: bold">{{ item.speciality }}({{item.education}})</div>
+            <div style="flex:1;color: #00bebd;font-weight: bold">{{ item.speciality }}({{ item.education }})</div>
+            <div style="display: flex; width: 30px">
+              <el-icon style="color: #00bebd; cursor: pointer" @click="editEduExp(item)">
+                <Edit/>
+              </el-icon>
+              <el-icon style="color: red; cursor: pointer" @click="delEduExp(item.id)">
+                <Delete/>
+              </el-icon>
+            </div>
           </div>
-          <div style="display: flex; width: 30px">
-            <el-icon style="color: #00bebd; cursor: pointer"><Edit /></el-icon>
-            <el-icon style="color: red; cursor: pointer"><Delete /></el-icon>
-          </div>
+          <div style="margin-top: 10px">主修课程：{{ item.course }}</div>
         </div>
-        <div style="margin-top: 10px">主修课程：{{ item.course }}</div>
+        <div></div>
       </div>
-      <div></div>
+      <div style="margin-top: 20px">
+        <el-button type="success" @click="addWorkExp">添加工作经历</el-button>
+      </div>
+      <div style="margin-top: 10px;font-size: 16px;" v-if="data.resumeData.workExpList.length">
+        <div style="font-weight: bold">工作经历:</div>
+        <div style="margin-top: 10px; margin-bottom: 20px" v-for="item in data.resumeData.workExpList">
+          <div style="display: flex;align-items: center">
+            <div style="flex:1;color: #00bebd">{{ item.start }} ~ {{ item.end ? item.end : '至今' }}</div>
+            <div style="flex:1;color: #00bebd;font-weight: bold">{{ item.employ }}</div>
+            <div style="flex:1;color: #00bebd;font-weight: bold">{{ item.position }}({{ item.type }})</div>
+            <div style="display: flex; width: 30px">
+              <el-icon style="color: #00bebd; cursor: pointer" @click="editWorkExp(item)">
+                <Edit/>
+              </el-icon>
+              <el-icon style="color: red; cursor: pointer" @click="delWorkExp(item.id)">
+                <Delete/>
+              </el-icon>
+            </div>
+          </div>
+          <div style="margin-top: 10px"><strong>{{ item.project }}</strong>：{{ item.content }}</div>
+        </div>
+        <div></div>
+      </div>
+      <div style="margin-top: 20px">
+        <el-button type="success" @click="addProExp">添加项目经验</el-button>
+      </div>
+      <div style="margin-top: 10px; font-size: 16px" v-if="data.resumeData.proExpList.length">
+        <div style="font-weight: bold">工作经历：</div>
+        <div style="margin-top: 10px; margin-bottom: 20px" v-for="item in data.resumeData.proExpList">
+          <div style="display: flex; align-items: center">
+            <div style="flex: 1; color: #00bebd">{{ item.start }} ~ {{ item.end ? item.end : '至今' }}</div>
+            <div style="flex: 1; color: #00bebd; font-weight: bold">{{ item.name }}</div>
+            <div style="display: flex; width: 30px">
+              <el-icon style="color: #00bebd; cursor: pointer" @click="editProExp(item)"><Edit /></el-icon>
+              <el-icon style="color: red; cursor: pointer" @click="delProExp(item.id)"><Delete /></el-icon>
+            </div>
+          </div>
+          <div style="margin-top: 10px">项目介绍：{{ item.content }}</div>
+        </div>
+        <div></div>
+      </div>
       <div style="margin-top: 50px; text-align: center">
         <el-button type="info" style="padding: 20px 30px" @click="saveResume">保存简历</el-button>
       </div>
     </div>
-    <el-dialog title="填写教育经历" v-model="data.eduFormVisible" width="40%" destroy-on-close>
+    <el-dialog title="教育经历" v-model="data.eduFormVisible" width="40%" destroy-on-close>
       <el-form ref="form" :model="data.eduForm" label-width="70px" style="padding: 20px">
         <el-form-item prop="school" label="学校名称">
           <el-input v-model="data.eduForm.school" placeholder="请输入学校名称"></el-input>
@@ -86,7 +131,8 @@
           <el-input v-model="data.eduForm.speciality" placeholder="请输入专业名称"></el-input>
         </el-form-item>
         <el-form-item prop="education" label="选择学历">
-          <el-select v-model="data.eduForm.education" placeholder="请选择你的学历" style="width: 50%; padding-right: 5px; width: 100%">
+          <el-select v-model="data.eduForm.education" placeholder="请选择你的学历"
+                     style="width: 50%; padding-right: 5px; width: 100%">
             <el-option label="初中及以下" value="初中及以下"></el-option>
             <el-option label="中专/中技" value="中专/中技"></el-option>
             <el-option label="高中" value="高中"></el-option>
@@ -124,6 +170,83 @@
         </span>
       </template>
     </el-dialog>
+    <el-dialog title="工作经历" v-model="data.workFormVisible" width="40%" destroy-on-close>
+      <el-form ref="form" :model="data.eduForm" label-width="70px" style="padding: 20px">
+        <el-form-item prop="employ" label="公司名称">
+          <el-input v-model="data.workForm.employ" placeholder="请输入公司名称"></el-input>
+        </el-form-item>
+        <el-form-item prop="project" label="项目名称">
+          <el-input v-model="data.workForm.project" placeholder="请输入项目名称"></el-input>
+        </el-form-item>
+        <el-form-item prop="position" label="职位名称">
+          <el-input v-model="data.workForm.position" placeholder="请输入职位名称"></el-input>
+        </el-form-item>
+        <el-form-item prop="type" label="职位类型">
+          <el-select v-model="data.workForm.type" placeholder="请选择你的职位类型"
+                     style="width: 50%; padding-right: 5px; width: 100%">
+            <el-option label="实习" value="实习"></el-option>
+            <el-option label="全职" value="全职"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item prop="start" label="入职时间">
+          <el-date-picker style="width: 100%"
+                          v-model="data.eduForm.start"
+                          type="date"
+                          placeholder="请选择日期"
+                          value-format="YYYY-MM-DD"
+          />
+        </el-form-item>
+        <el-form-item prop="end" label="离职时间">
+          <el-date-picker style="width: 100%"
+                          v-model="data.eduForm.end"
+                          type="date"
+                          placeholder="请选择日期"
+                          value-format="YYYY-MM-DD"
+          />
+        </el-form-item>
+        <el-form-item prop="content" label="项目介绍">
+          <el-input type="textarea" :rows="4" v-model="data.eduForm.course" placeholder="请填写项目介绍"></el-input>
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="data.workFormVisible = false">取 消</el-button>
+          <el-button type="primary" @click="saveWorkExp">确 定</el-button>
+        </span>
+      </template>
+    </el-dialog>
+    <el-dialog title="项目经验" v-model="data.proFormVisible" width="40%" destroy-on-close>
+      <el-form ref="form" :model="data.proForm" label-width="70px" style="padding: 20px">
+        <el-form-item prop="name" label="项目名称">
+          <el-input v-model="data.proForm.name" placeholder="请输入项目名称"></el-input>
+        </el-form-item>
+        <el-form-item prop="start" label="开始时间">
+          <el-date-picker style="width: 100%"
+                          v-model="data.proForm.start"
+                          type="date"
+                          placeholder="请选择日期"
+                          value-format="YYYY-MM-DD"
+          />
+        </el-form-item>
+        <el-form-item prop="end" label="结束时间">
+          <el-date-picker style="width: 100%"
+                          v-model="data.proForm.end"
+                          type="date"
+                          placeholder="请选择日期"
+                          value-format="YYYY-MM-DD"
+          />
+        </el-form-item>
+        <el-form-item prop="content" label="项目介绍">
+          <el-input type="textarea" :rows="4" v-model="data.proForm.content" placeholder="请输入项目介绍"></el-input>
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="data.proFormVisible = false">取 消</el-button>
+          <el-button type="primary" @click="saveProExp">确 定</el-button>
+        </span>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
@@ -135,11 +258,18 @@ import {ElMessage} from "element-plus";
 const data = reactive({
   user: JSON.parse(localStorage.getItem('xm-user') || '{}'),
   resumeData: {
-    eduExpList: []
+    eduExpList: [],
+    workExpList: [],
+    proExpList: []
   },
   eduForm: {},
   eduFormVisible: false,
 
+  workForm: {},
+  workFormVisible: false,
+
+  proForm: {},
+  proFormVisible: false
 })
 
 const saveResume = () => {
@@ -159,8 +289,34 @@ const addEduExp = () => {
   }
   data.eduFormVisible = true
 }
+
+const addWorkExp = () => {
+  data.workForm={
+    id: new Date().getTime() + Math.random().toString(36).substr(2)
+  }
+  data.workFormVisible = true
+}
+
+const addProExp = () => {
+  data.proForm={
+    id: new Date().getTime() + Math.random().toString(36).substr(2)
+  }
+  data.proFormVisible = true
+}
+
 const saveEduExp = () => {
   data.resumeData.eduExpList.push(data.eduForm)
   data.eduFormVisible = false
 }
+
+const saveWorkExp = () => {
+  data.resumeData.workExpList.push(data.workForm)
+  data.workFormVisible = false
+}
+
+const saveProExp = () => {
+  data.resumeData.proExpList.push(data.proForm)
+  data.proFormVisible = false
+}
+
 </script>

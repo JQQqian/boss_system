@@ -1,6 +1,10 @@
 package com.example.service;
 
+import cn.hutool.json.JSONUtil;
+import com.example.entity.EduExp;
+import com.example.entity.ProExp;
 import com.example.entity.Resume;
+import com.example.entity.WorkExp;
 import com.example.mapper.ResumeMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -16,10 +20,18 @@ public class ResumeService {
     private ResumeMapper resumeMapper;
 
     public void add(Resume resume) {
+        // 我们要把从前端接收到的结构化数据转成json字符串
+        resume.setEduExps(JSONUtil.toJsonStr(resume.getEduExpList()));
+        resume.setWorkExps(JSONUtil.toJsonStr(resume.getWorkExpList()));
+        resume.setProExps(JSONUtil.toJsonStr(resume.getProExpList()));
         resumeMapper.insert(resume);
     }
 
     public void updateById(Resume resume) {
+        // 我们要把从数据库里查出来的json字符串转成List
+        resume.setEduExps(JSONUtil.toJsonStr(resume.getEduExpList()));
+        resume.setWorkExps(JSONUtil.toJsonStr(resume.getWorkExpList()));
+        resume.setProExps(JSONUtil.toJsonStr(resume.getProExpList()));
         resumeMapper.updateById(resume);
     }
 
@@ -34,6 +46,11 @@ public class ResumeService {
     }
 
     public Resume selectById(Integer id) {
+        Resume resume = resumeMapper.selectById(id);
+        // 我们要把从数据库里查出来的json字符串转成List
+        resume.setEduExpList(JSONUtil.toList(resume.getEduExps(), EduExp.class));
+        resume.setWorkExpList(JSONUtil.toList(resume.getWorkExps(), WorkExp.class));
+        resume.setProExpList(JSONUtil.toList(resume.getProExps(), ProExp.class));
         return resumeMapper.selectById(id);
     }
 

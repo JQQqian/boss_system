@@ -1,5 +1,7 @@
 package com.example.entity;
 
+import java.util.List;
+
 public class Resume {
     private Integer id;
     private String name;
@@ -14,6 +16,34 @@ public class Resume {
     private String workExps;
     private String proExps;
     private Integer userId;
+
+    private List<EduExp> eduExpList;
+    private List<WorkExp> workExpList;
+    private List<ProExp> proExpList;
+
+    public List<EduExp> getEduExpList() {
+        return eduExpList;
+    }
+
+    public void setEduExpList(List<EduExp> eduExpList) {
+        this.eduExpList = eduExpList;
+    }
+
+    public List<WorkExp> getWorkExpList() {
+        return workExpList;
+    }
+
+    public void setWorkExpList(List<WorkExp> workExpList) {
+        this.workExpList = workExpList;
+    }
+
+    public List<ProExp> getProExpList() {
+        return proExpList;
+    }
+
+    public void setProExpList(List<ProExp> proExpList) {
+        this.proExpList = proExpList;
+    }
 
     public Integer getId() {
         return id;
