@@ -10,7 +10,10 @@
           <img @click="navTo('/front/resumeEdit?id=' + item.id)" src="../../assets/imgs/user.png" alt="" style="width: 100%; cursor: pointer">
           <div style="display: flex; align-items: center; background-color: white; padding: 10px; margin-bottom: 15px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px">
             <div style="flex: 1">{{ item.name }}</div>
-              <el-icon size="large" style="width: 30px; color: #00bebd; cursor: pointer"><Position /></el-icon>
+              <a :href="'/resumeView?id=' + item.id" target="_blank">
+                <el-icon size="large" style="width: 30px; color: #00bebd; cursor: pointer"><Position /></el-icon>
+              </a>
+
               <el-icon @click="delResume(item.id)" size="large" style="width: 30px; color: red; cursor: pointer;"><Delete /></el-icon>
             </div>
         </el-col>

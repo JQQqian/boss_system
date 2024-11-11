@@ -13,7 +13,8 @@ public interface ResumeMapper {
 
     void deleteById(Integer id);
 
-    @Select("select * from `resume` where id = #{id}")
+    @Select("select resume.*, user.avatar as userAvatar from `resume` left join user on resume.user_id = user.id " +
+            "where resume.id = #{id}")
     Resume selectById(Integer id);
 
     List<Resume> selectAll(Resume resume);

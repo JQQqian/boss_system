@@ -17,6 +17,8 @@ public class Resume {
     private String proExps;
     private Integer userId;
 
+    private String userAvatar;
+
     private List<EduExp> eduExpList;
     private List<WorkExp> workExpList;
     private List<ProExp> proExpList;
@@ -147,5 +149,13 @@ public class Resume {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public String getUserAvatar() {
+        return userAvatar;
+    }
+
+    public void setUserAvatar(String userAvatar) {
+        this.userAvatar = userAvatar;
     }
 }
