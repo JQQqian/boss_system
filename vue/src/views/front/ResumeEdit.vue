@@ -254,8 +254,10 @@
 import {reactive} from "vue";
 import request from "@/utils/request.js";
 import {ElMessage} from "element-plus";
+import router from "@/router/index.js";
 
 const data = reactive({
+  resumeId: router.currentRoute.value.query.id,
   user: JSON.parse(localStorage.getItem('xm-user') || '{}'),
   resumeData: {
     eduExpList: [],
@@ -272,15 +274,43 @@ const data = reactive({
   proFormVisible: false
 })
 
+const loadResume = () => {
+  data.resumeId = router.currentRoute.value.query.id
+  if (data.resumeId) {
+    request.get('/resume/selectById/' + data.resumeId).then(res => {
+      if (res.code === '200') {
+        data.resumeData = res.data
+      } else {
+        ElMessage.error(res.msg)
+      }
+    })
+  }
+}
+
 const saveResume = () => {
-  data.resumeData.userId = data.user.id
-  request.post('/resume/add', data.resumeData).then(res => {
-    if (res.code === '200') {
-      ElMessage.success('保存成功')
-    } else {
-      ElMessage.error(res.msg)
-    }
-  })
+  if (data.resumeData.id) {
+    // 更新
+    request.put('/resume/update', data.resumeData).then(res => {
+      if (res.code === '200') {
+        ElMessage.success('保存成功')
+      } else {
+        ElMessage.error(res.msg)
+      }
+    })
+  } else {
+    // 新增新的简历
+    data.resumeData.userId = data.user.id
+    request.post('/resume/add', data.resumeData).then(res => {
+      if (res.code === '200') {
+        ElMessage.success('保存成功')
+        setTimeout(() => {
+          location.href = '/front/resume'
+        }, 500)
+      } else {
+        ElMessage.error(res.msg)
+      }
+    })
+  }
 }
 
 const addEduExp = () => {
@@ -318,5 +348,7 @@ const saveProExp = () => {
   data.resumeData.proExpList.push(data.proForm)
   data.proFormVisible = false
 }
+
+loadResume()
 
 </script>

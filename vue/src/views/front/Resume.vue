@@ -1,28 +1,18 @@
-<template>
+<template xmlns="">
   <div style="min-height: 1000px; background-color: #f6f6f8; padding: 50px 0">
     <div style="margin:0 auto;width: 70%;text-align: center;font-weight: bold;font-size:20px;">
-      我的简历({{ data.collectData.length }})
-      <el-button type="primary" style="margin-left: 20px" @click="navTo('/front/ResumeEdit')">创建新的简历</el-button>
+      我的简历({{ data.resumeData.length }})
+      <el-button type="info" @click="navTo('/front/resumeEdit')">创建新的简历</el-button>
     </div>
-    <div style="width: 70%;margin: 30px auto">
+    <div style="width: 70%; margin: 50px auto; text-align: center">
       <el-row :gutter="10">
-        <el-col :span="8" v-for="it in data.collectData" style="margin-bottom: 20px">
-          <div class="card">
-            <div style="display: flex;padding: 0 5px;cursor: pointer"
-                 @click="navTo('/front/positionDetail?id=' + it.positionId)">
-              <div style="flex: 1;text-align: left;font-size: 16px">{{ it.positionName }}</div>
-              <div style="width: 100px;text-align: right;color: red"></div>
+        <el-col :span="6" v-for="item in data.resumeData">
+          <img @click="navTo('/front/resumeEdit?id=' + item.id)" src="../../assets/imgs/user.png" alt="" style="width: 100%; cursor: pointer">
+          <div style="display: flex; align-items: center; background-color: white; padding: 10px; margin-bottom: 15px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px">
+            <div style="flex: 1">{{ item.name }}</div>
+              <el-icon size="large" style="width: 30px; color: #00bebd; cursor: pointer"><Position /></el-icon>
+              <el-icon @click="delResume(item.id)" size="large" style="width: 30px; color: red; cursor: pointer;"><Delete /></el-icon>
             </div>
-            <div style="margin: 10px 0;padding: 0 5px;text-align: left">
-              <el-tag style="margin-right: 5px" type="info" v-for="tag in it.tagList">{{ tag }}</el-tag>
-            </div>
-            <div style="display: flex;align-items: center; padding: 10px 5px">
-              <div style="width: 35px"><img :src="it.employAvatar" alt="" style="width: 35px; height: 35px; border-radius: 5px; border: 1px solid #cccccc"></div>
-              <div style="width: 100px; margin-left: 10px">{{ it.employName }}</div>
-              <div style="flex: 1">{{ it.industryName }}</div>
-              <el-icon style="width: 20px; color: red; cursor: pointer" @click="cancelCollect(it.id)"><Delete /></el-icon>
-            </div>
-          </div>
         </el-col>
       </el-row>
     </div>
@@ -35,40 +25,44 @@ import {reactive} from "vue";
 import request from "@/utils/request.js";
 import {ElMessage, ElMessageBox} from "element-plus";
 
-
 const data = reactive({
-  collectData: []
+  resumeData: [],
+  user: JSON.parse(localStorage.getItem('xm-user') || '{}'),
 })
 
-const loadCollect = () => {
-  request.get("/collect/selectAll").then(res => {
+const navTo = (url) => {
+  location.href = url
+}
+
+const loadResume = () => {
+  request.get('/resume/selectAll', {
+    params: {
+      userId: data.user.id
+    }
+  }).then(res => {
     if (res.code === '200') {
-      data.collectData = res.data
+      data.resumeData = res.data
     } else {
       ElMessage.error(res.msg)
     }
   })
 }
 
-const navTo = (url) => {
-  location.href = url
-}
-
-const cancelCollect = (id) => {
-  ElMessageBox.confirm('您确定取消收藏吗？', '取消确认', {type: 'warning'}).then(() => {
-    request.delete('/collect/delete/' + id).then(res => {
+const delResume = (id) => {
+  ElMessageBox.confirm('删除后数据无法恢复，您确定删除吗？', '删除确认', { type: 'warning' }).then(res => {
+    request.delete('/resume/delete/' + id).then(res => {
       if (res.code === '200') {
-        ElMessage.success('取消收藏成功')
-        loadCollect()
+        ElMessage.success('删除成功')
+        loadResume()
       } else {
         ElMessage.error(res.msg)
       }
     })
-  }).catch(() => {
+  }).catch(err => {
     console.error(err)
   })
 }
 
-loadCollect()
+loadResume()
 
 </script>

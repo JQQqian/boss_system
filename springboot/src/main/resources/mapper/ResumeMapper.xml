@@ -57,7 +57,7 @@
                 name = #{name},
             </if>
             <if test="username != null">
-                content = #{username},
+                username = #{username},
             </if>
             <if test="sex != null">
                 sex = #{sex},
