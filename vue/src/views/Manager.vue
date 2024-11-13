@@ -48,6 +48,7 @@
             <el-menu-item index="/manager/advertise" v-if="data.user.role === 'ADMIN'">广告信息</el-menu-item>
             <el-menu-item index="/manager/industry" v-if="data.user.role === 'ADMIN'">行业信息</el-menu-item>
             <el-menu-item index="/manager/position">职位信息</el-menu-item>
+            <el-menu-item index="/manager/submit">投递信息</el-menu-item>
           </el-sub-menu>
           <el-sub-menu index="2" v-if="data.user.role === 'ADMIN'">
             <template #title>
@@ -64,8 +65,6 @@
         <RouterView @updateUser="updateUser" />
       </div>
     </div>
-    <!-- 下面部分结束 -->
-
 
   </div>
 </template>

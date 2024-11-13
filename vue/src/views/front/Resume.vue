@@ -13,7 +13,6 @@
               <a :href="'/resumeView?id=' + item.id" target="_blank">
                 <el-icon size="large" style="width: 30px; color: #00bebd; cursor: pointer"><Position /></el-icon>
               </a>
-
               <el-icon @click="delResume(item.id)" size="large" style="width: 30px; color: red; cursor: pointer;"><Delete /></el-icon>
             </div>
         </el-col>

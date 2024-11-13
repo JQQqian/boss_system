@@ -18,7 +18,8 @@ const router = createRouter({
         { path: 'employ', meta: { name: ' 企业信息' }, component: () => import('@/views/manager/Employ.vue'), },
         { path: 'user', meta: { name: ' 用户信息' }, component: () => import('@/views/manager/User.vue'), },
         { path: 'position', meta: { name: ' 职位信息' }, component: () => import('@/views/manager/Position.vue'), },
-        { path: 'advertise', meta: { name: ' 广告信息' }, component: () => import('@/views/manager/advertise.vue'), },
+        { path: 'advertise', meta: { name: ' 广告信息' }, component: () => import('@/views/manager/Advertise.vue'), },
+        { path: 'submit', meta: { name: ' 投递信息' }, component: () => import('@/views/manager/Submit.vue'), },
       ]
     },
     {

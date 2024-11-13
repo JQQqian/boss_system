@@ -135,7 +135,7 @@ import {ElMessage, ElMessageBox} from "element-plus";
 import {Check, Close, Delete, Edit} from "@element-plus/icons-vue";
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
 import {onBeforeUnmount, reactive, ref, shallowRef} from "vue";
-import {Editor, Toolbar} from '@wangeditor/editor-for-vue'
+
 
 const data = reactive({
   formVisible: false,

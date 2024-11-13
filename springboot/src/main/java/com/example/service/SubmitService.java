@@ -2,9 +2,12 @@ package com.example.service;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateUtil;
+import com.example.common.enums.RoleEnum;
+import com.example.entity.Account;
 import com.example.entity.Submit;
 import com.example.exception.CustomException;
 import com.example.mapper.SubmitMapper;
+import com.example.utils.TokenUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import jakarta.annotation.Resource;
@@ -51,6 +54,13 @@ public class SubmitService {
     }
 
     public PageInfo<Submit> selectPage(Submit submit, Integer pageNum, Integer pageSize) {
+        Account currentUser = TokenUtils.getCurrentUser();
+        if(RoleEnum.USER.name().equals(currentUser.getRole())){
+            submit.setUserId(currentUser.getId());
+        }
+        if(RoleEnum.EMPLOY.name().equals(currentUser.getRole())){
+            submit.setEmployId(currentUser.getId());
+        }
         PageHelper.startPage(pageNum, pageSize);
         List<Submit> list = submitMapper.selectAll(submit);
         return PageInfo.of(list);

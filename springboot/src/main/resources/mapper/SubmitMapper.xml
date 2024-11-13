@@ -4,7 +4,10 @@
 <mapper namespace="com.example.mapper.SubmitMapper">
 
     <select id="selectAll" resultType="com.example.entity.Submit">
-        select * from `submit`
+        select submit.*,employ.name as employName,user.name as userName,position.name as positionName from `submit`
+        left join employ on submit.employ_id = employ.id
+        left join position on submit.position_id = position.id
+        left join user on submit.user_id = user.id
         <where>
             <if test="userId != null"> and user_id = #{userId}</if>
             <if test="employId != null"> and employ_id = #{employId}</if>

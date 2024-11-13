@@ -5,7 +5,6 @@
         在线编辑您的简历
       </div>
       <div style="margin-top: 20px">
-        <pre>{{ data.resumeData}}</pre>
         <el-input style="width: 50%;padding-right: 5px" v-model="data.resumeData.name"
                   placeholder="请输入简历名称"></el-input>
         <el-input style="width: 50%;padding-left: 5px" v-model="data.resumeData.username"
@@ -280,8 +279,7 @@ const loadResume = () => {
   if (data.resumeId) {
     request.get('/resume/selectById/' + data.resumeId).then(res => {
       if (res.code === '200') {
-        data.resumeData = res.data;
-        console.log(data.resumeData);
+        data.resumeData = res.data
       } else {
         ElMessage.error(res.msg)
       }
