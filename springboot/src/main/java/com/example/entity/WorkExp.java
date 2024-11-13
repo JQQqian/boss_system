@@ -1,6 +1,8 @@
 package com.example.entity;
 
 public class WorkExp {
+    private String id;
+
     private String employ;
 
     private String project;
@@ -14,6 +16,14 @@ public class WorkExp {
     private String end;
 
     private String content;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getEmploy() {
         return employ;

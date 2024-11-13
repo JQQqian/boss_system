@@ -2,6 +2,8 @@ package com.example.entity;
 
 public class EduExp {
 
+    private String id;
+
     private String school;
 
     private String speciality;
@@ -13,6 +15,14 @@ public class EduExp {
     private String end;
 
     private String course;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getSchool() {
         return school;
