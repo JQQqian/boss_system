@@ -31,6 +31,7 @@ const router = createRouter({
         { path: 'collect', component: () => import('@/views/front/Collect.vue'),  },
         { path: 'resume', component: () => import('@/views/front/Resume.vue'),  },
         { path: 'resumeEdit', component: () => import('@/views/front/ResumeEdit.vue'),  },
+        { path: 'submit', component: () => import('@/views/front/Submit.vue'),  },
       ]
     },
     { path: '/login', component: () => import('@/views/Login.vue') },
