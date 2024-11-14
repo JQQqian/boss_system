@@ -11,6 +11,7 @@
         <where>
             <if test="userId != null"> and user_id = #{userId}</if>
             <if test="employId != null"> and employ_id = #{employId}</if>
+            <if test="positionName != null"> and position_name like concat('%',#{positionName},'%')</if>
         </where>
     </select>
 

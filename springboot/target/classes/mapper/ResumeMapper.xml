@@ -5,7 +5,6 @@
 
     <select id="selectAll" resultType="com.example.entity.Resume">
         select * from `resume`
-
         <where>
             <if test="userId != null"> and user_id = #{userId}</if>
         </where>

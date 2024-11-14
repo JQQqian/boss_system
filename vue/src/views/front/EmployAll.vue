@@ -32,14 +32,6 @@
             <div style="margin-left:5px">{{ data.positionData.type }}</div>
           </div>
         </div>
-        <div style="margin-top: 20px">
-          <el-button :disable="data.user || data.user.role !== 'USER'" type="success" style="padding: 20px 30px"
-                     @click="collect">收藏岗位
-          </el-button>
-          <el-button :disable="data.user || data.user.role !== 'USER'" type="info" style="padding: 20px 30px"
-                     @click="submitInit">投递简历
-          </el-button>
-        </div>
       </div>
     </div>
     <div style="margin: 20px auto; width: 80%; display: flex">
@@ -82,7 +74,7 @@
             <div style="margin-left: 10px">{{ data.positionData.employAddress }}</div>
           </div>
           <div style="margin-top: 20px; text-align: center">
-            <el-button type="success" style="padding: 20px 30px" @click="check">查看全部职位</el-button>
+            <el-button type="success" style="padding: 20px 30px" @click="">查看全部职位</el-button>
           </div>
         </div>
         <div
