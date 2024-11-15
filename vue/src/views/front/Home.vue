@@ -3,8 +3,8 @@
     <img src="@/assets/imgs/banner.png" alt="" style="width: 100%;height: 120px">
     <div style="margin: 25px auto; width: 70%; text-align: center">
       <el-input size="large" v-model="data.name" placeholder="请输入你感兴趣的职位"
-                style="width: 500px; margin-right: 5px"></el-input>
-      <el-button size="large" type="info">搜索</el-button>
+                style="width: 500px; margin-right: 5px" clearable @clear="reset"></el-input>
+      <el-button size="large" type="info" @click="loadPosition">搜索</el-button>
     </div>
     <div style="margin: 0 auto; width: 70%; text-align: center">
       <div style="display: flex">
@@ -77,9 +77,11 @@
 import {reactive} from "vue";
 import {ElMessage} from "element-plus";
 import request from "@/utils/request.js";
+import router from "@/router/index.js";
 
 const data = reactive({
-  name: null,
+  user: JSON.parse(localStorage.getItem('xm-user') || '{}'),
+  name: router.currentRoute.value.query.name,
   advertiseData: [],
   centerAd: {},
   leftAd: {},
@@ -140,6 +142,25 @@ const handleClick = (industryId) => {
       ElMessage.error(res.msg)
     }
   })
+}
+
+const loadPosition = () => {
+  request.get('/position/selectAll',{
+    params: {
+      name: data.name
+    }
+  }).then(res => {
+    if(res.code === '200'){
+      data.positionData = res.data
+    }else{
+      ElMessage.error(res.msg)
+    }
+  })
+}
+
+const reset = () => {
+  data.name = null
+  loadPosition()
 }
 
 const navTo = (url) => {

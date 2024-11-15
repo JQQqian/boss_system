@@ -19,11 +19,30 @@
       <div style="margin: 20px auto;width: 80%;text-align: center">
         <el-input v-model="data.name" placeholder="搜索该企业正在招聘的岗位" style="width: 500px;margin-right: 5px  " size="large">
         </el-input>
-        <el-button type="info" size="large">搜索</el-button>
+        <el-button type="info" size="large" @click="loadPosition()">搜索</el-button>
       </div>
-      <div>
+      <div style="margin: 50px auto; width: 70%">
+        <el-row :gutter="10">
+          <el-col :span="8" v-for="it in data.positionData" style="margin-bottom: 20px">
+            <div class="card" style="cursor: pointer" @click="navTo('/front/positionDetail?id=' + it.id)">
+              <div style="display: flex; padding: 0 5px">
+                <div style="flex: 1; text-align: left; font-size: 16px">{{ it.name }}</div>
+                <div style="width: 100px; text-align: right; color: red">{{ it.salary }}</div>
+              </div>
+              <div style="margin: 10px 0; padding: 0 5px; text-align: left">
+                <el-tag style="margin-right: 5px" type="info" v-for="tag in it.tagList">{{ tag }}</el-tag>
+              </div>
+              <div style="display: flex; align-items: center; padding: 10px 5px">
+                <div style="width: 35px"><img :src="it.employAvatar" alt="" style="width: 35px; height: 35px; border-radius: 5px; border: 1px solid #cccccc"></div>
+                <div style="width: 80px; margin-left: 10px">{{ it.employName }}</div>
+                <div style="flex: 1">{{ it.industryName }}</div>
+                <div style="width: 80px; text-align: right">{{ it.employStage }}</div>
+              </div>
+            </div>
+          </el-col>
+        </el-row>
+      </div>
 
-      </div>
     </div>
   </div>
 
@@ -66,6 +85,10 @@ const loadPosition = () => {
       ElMessage.error(res.msg)
     }
   })
+}
+
+const navTo = (url) => {
+  location.href = url
 }
 
 loadEmploy()

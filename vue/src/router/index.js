@@ -45,7 +45,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  let user = JSON.parse(localStorage.getItem('xm-user'))
+  let user = JSON.parse(localStorage.getItem('xm-user') || '{}')
   if(to.path === '/'){
     if(user){
       if(user.role === 'USER'){
@@ -60,4 +60,5 @@ router.beforeEach((to, from, next) => {
     next()
   }
 })
+
 export default router
