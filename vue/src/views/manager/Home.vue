@@ -1,43 +1,64 @@
 <template>
-  <div>
-    <div class="card" style="margin-bottom: 5px">您好！{{ data.user?.name }}，欢迎使用本系统！</div>
-    <div style="display: flex">
-      <div class="card" style="flex: 50%; height: 350px">
-        <div style="font-weight: bold; font-size: 18px; padding: 10px 0 30px 10px">系统公告</div>
-        <el-timeline style="max-width: 600px">
-          <el-timeline-item
-              v-for="(item, index) in data.noticeData"
-              :key="index"
-              :timestamp="item.time"
-          >
-            {{ item.content }}
-          </el-timeline-item>
-        </el-timeline>
+  <div style="display: flex">
+    <div style="flex: 1; display: flex; align-items: center" class="card">
+      <img src="../../assets/imgs/employ-kb6_q5aM.jpg" alt="" style="width: 80px;height: 80px">
+      <div style="margin-left: 20px">
+        <div style="font-size: 20px">平台在招企业数量</div>
+        <div style="font-size: 20px; margin-top: 10px">{{ data.employNum }}</div>
       </div>
-      <div style="flex: 50%"></div>
+    </div>
+    <div style="flex: 1; margin: 0 10px; display: flex; align-items: center" class="card">
+      <img src="../../assets/imgs/employee-BFkiltqs.jpg" alt="" style="width: 80px;height: 80px">
+      <div style="margin-left: 20px">
+        <div style="font-size: 20px">平台求职用户数量</div>
+        <div style="font-size: 20px; margin-top: 10px">{{ data.employeeNum }}</div>
+      </div>
+    </div>
+    <div style="flex: 1; display: flex; align-items: center" class="card">
+      <img src="../../assets/imgs/positon-Be3w-_wH.jpg" alt="" style="width: 80px;height: 80px">
+      <div style="margin-left: 20px">
+        <div style="font-size: 20px">平台在招岗位数量</div>
+        <div style="font-size: 20px; margin-top: 10px">{{ data.positionNum }}</div>
+      </div>
+    </div>
+    <div style="flex: 1; margin-left: 10px; display: flex; align-items: center" class="card">
+      <img src="../../assets/imgs/submit-D44Yh2-L.jpg" alt="" style="width: 80px;height: 80px">
+      <div style="margin-left: 20px">
+        <div style="font-size: 20px">平台岗位总投递数量</div>
+        <div style="font-size: 20px; margin-top: 10px">{{ data.submitNum }}</div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
 
-import {reactive} from "vue";
+import {reactive, onMounted} from "vue";
 import request from "@/utils/request.js";
 import {ElMessage} from "element-plus";
 
 const data = reactive({
   user: JSON.parse(localStorage.getItem('xm-user') || '{}'),
-  noticeData: []
+  employNum: 0,
+  employeeNum: 0,
+  positionNum: 0,
+  submitNum: 0,
 })
 
-const loadNotice = () => {
-  request.get('/notice/selectAll').then(res => {
+const loadBaseData = () => {
+  request.get('/statistics/base').then(res => {
     if (res.code === '200') {
-      data.noticeData = res.data
+      data.employNum = res.data.employNum
+      data.employeeNum = res.data.employeeNum
+      data.positionNum = res.data.positionNum
+      data.submitNum = res.data.submitNum
     } else {
       ElMessage.error(res.msg)
     }
   })
 }
-loadNotice()
+
+onMounted(() => {
+  loadBaseData()
+})
 </script>
