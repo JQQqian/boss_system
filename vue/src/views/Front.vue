@@ -9,10 +9,10 @@
       <div class="front-header-center">
         <el-menu :default-active="router.currentRoute.value.path" router mode="horizontal">
           <el-menu-item index="/front/home">首页</el-menu-item>
-          <el-menu-item index="/front/submit" v-if="data.user.role === 'USER'">我的投递</el-menu-item>
-          <el-menu-item index="/front/collect" v-if="data.user.role === 'USER'">我的收藏</el-menu-item>
-          <el-menu-item index="/front/resume" v-if="data.user.role === 'USER'">我的简历</el-menu-item>
-          <el-menu-item index="/front/person" v-if="data.user.role === 'USER'">个人中心</el-menu-item>
+          <el-menu-item index="/front/submit" v-if="data.user && data.user.role === 'USER'">我的投递</el-menu-item>
+          <el-menu-item index="/front/collect" v-if="data.user && data.user.role === 'USER'">我的收藏</el-menu-item>
+          <el-menu-item index="/front/resume" v-if="data.user && data.user.role === 'USER'">我的简历</el-menu-item>
+          <el-menu-item index="/front/person" v-if="data.user && data.user.role === 'USER'">个人中心</el-menu-item>
         </el-menu>
       </div>
       <div class="front-header-right">

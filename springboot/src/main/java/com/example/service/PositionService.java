@@ -94,7 +94,11 @@ public class PositionService {
      */
     public List<Position> recommend() {
         // TODO 暂时就随便取3个，后面我们在这里使用协同过滤推荐算法来推荐
+        Account currentUser = TokenUtils.getCurrentUser();
         List<Position> positions = positionMapper.selectAll(new Position());
+        if(ObjectUtil.isEmpty(currentUser)){
+            return getRandomPositions(3, positions, null);
+        }
         Collections.shuffle(positions);
         if (positions.size() > 3) {
             positions = positions.subList(0, 3);
