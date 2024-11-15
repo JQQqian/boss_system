@@ -82,7 +82,7 @@
             <div style="margin-left: 10px">{{ data.positionData.employAddress }}</div>
           </div>
           <div style="margin-top: 20px; text-align: center">
-            <el-button type="success" style="padding: 20px 30px" @click="check">查看全部职位</el-button>
+            <el-button type="success" style="padding: 20px 30px" @click="navTo('/front/employAll?id=' + data.positionData.employId)">查看全部职位</el-button>
           </div>
         </div>
         <div
@@ -205,6 +205,10 @@ const submitInit = () => {
       ElMessage.error(res.msg)
     }
   })
+}
+
+const navTo = (url) => {
+  location.href = url
 }
 
 const submit = () => {

@@ -33,6 +33,7 @@ const router = createRouter({
         { path: 'resume', component: () => import('@/views/front/Resume.vue'),  },
         { path: 'resumeEdit', component: () => import('@/views/front/ResumeEdit.vue'),  },
         { path: 'submit', component: () => import('@/views/front/Submit.vue'),  },
+        { path: 'employAll', component: () => import('@/views/front/EmployAll.vue'),  },
       ]
     },
     { path: '/login', component: () => import('@/views/Login.vue') },
@@ -43,4 +44,20 @@ const router = createRouter({
   ]
 })
 
+router.beforeEach((to, from, next) => {
+  let user = JSON.parse(localStorage.getItem('xm-user'))
+  if(to.path === '/'){
+    if(user){
+      if(user.role === 'USER'){
+        next('/front/home')
+      }else{
+        next('/home')
+      }
+    }else{
+      next('/login')
+    }
+  }else{
+    next()
+  }
+})
 export default router
