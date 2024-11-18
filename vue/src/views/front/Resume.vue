@@ -1,4 +1,4 @@
-<template xmlns="">
+<template>
   <div style="min-height: 1000px; background-color: #f6f6f8; padding: 50px 0">
     <div style="margin:0 auto;width: 70%;text-align: center;font-weight: bold;font-size:20px;">
       我的简历({{ data.resumeData.length }})

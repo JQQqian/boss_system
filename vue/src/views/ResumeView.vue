@@ -80,6 +80,7 @@ const loadResume = () => {
     request.get('/resume/selectById/' + data.resumeId).then(res => {
       if (res.code === '200') {
         data.resumeData = res.data
+        console.log(data.resumeData)
       } else {
         ElMessage.error(res.msg)
       }

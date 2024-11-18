@@ -5,6 +5,7 @@
     </div>
     <div style="margin-top: 20px">
       <el-input style="width: 50%; padding-right: 5px" v-model="data.resumeData.name" placeholder="请输入简历名称"></el-input>
+      <p>{{ data.resumeData.username }}</p>
       <el-input style="width: 50%; padding-left: 5px" v-model="data.resumeData.username" placeholder="请输入姓名"></el-input>
     </div>
     <div style="margin-top: 10px">
@@ -237,10 +238,16 @@
 import {reactive} from "vue";
 import request from "@/utils/request.js";
 import {ElMessage, ElMessageBox} from "element-plus";
+import router from "@/router/index.js";
 
 const data = reactive({
+  resumeId:router.currentRoute.value.params.id,
   user: JSON.parse(localStorage.getItem('xm-user') || '{}'),
   resumeData: {
+    name: '',
+    username: '',
+    sex: '',
+    salary: '',
     eduExpList: [],
     workExpList: [],
     proExpList: []
@@ -265,6 +272,20 @@ const saveResume = () => {
       ElMessage.error(res.msg)
     }
   })
+}
+
+const loadResume = () => {
+  data.resumeId = router.currentRoute.value.query.id
+  if (data.resumeId) {
+    request.get('/resume/selectById/' + data.resumeId).then(res => {
+      if (res.code === '200') {
+        data.resumeData = res.data
+        console.log(data.resumeData.name)
+      } else {
+        ElMessage.error(res.msg)
+      }
+    })
+  }
 }
 
 const addEduExp = () => {
@@ -380,5 +401,7 @@ const saveProExp = () => {
   }
   data.proFormVisible = false
 }
+
+loadResume()
 
 </script>
