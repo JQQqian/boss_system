@@ -34,6 +34,7 @@ public class WebController {
      */
     @PostMapping("/login")
     public Result login(@RequestBody Account account) {
+        // 根据角色调用不同的登录方法
         Account loginAccount = null;
         if (RoleEnum.ADMIN.name().equals(account.getRole())) {
             loginAccount = adminService.login(account);
